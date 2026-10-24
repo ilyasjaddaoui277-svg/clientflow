@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#080912">
+  <meta name="description" content="A polished SaaS website template for client onboarding platforms, creative studios, and modern service teams.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Clientflow — A calmer way to onboard clients">
+  <meta property="og:description" content="Bring proposals, client details, files, and kickoff into one clear onboarding flow.">
+  <title>Clientflow — A calmer way to onboard clients</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%239879ff'/%3E%3Cstop offset='1' stop-color='%234bd7d0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='40' height='40' rx='12' fill='url(%23g)'/%3E%3Cpath d='M22 6 11 22h8l-1 12 12-17h-8z' fill='white'/%3E%3C/svg%3E">
+  <style>
+    /*
+      CLIENTFLOW — single-file SaaS landing page template
+      Before publishing: replace demo brand, copy, sample dashboard data, prices,
+      testimonials, contact details and all claims with verified information.
+      The lead form is front-end-only and must be connected to a backend/CRM.
+    */
+    :root {
+      color-scheme: dark;
+      --bg: #080912;
+      --bg-soft: #0c0e19;
+      --surface: #111421;
+      --surface-raised: #171a2a;
+      --surface-bright: #1d2032;
+      --line: rgba(238, 240, 255, .09);
+      --line-strong: rgba(238, 240, 255, .16);
+      --text: #f3f4fb;
+      --muted: #a4a8bd;
+      --quiet: #747a93;
+      --violet: #9b7bff;
+      --cyan: #56ded5;
+      --green: #72e2b2;
+      --amber: #f7c979;
+      --gradient: linear-gradient(120deg, #a185ff 0%, #57ddd3 100%);
+      --gradient-soft: linear-gradient(135deg, rgba(155,123,255,.14), rgba(86,222,213,.08));
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --container: 1160px;
+      --radius-sm: 12px;
+      --radius: 18px;
+      --radius-lg: 26px;
+      --shadow: 0 30px 90px rgba(0, 0, 0, .42);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body, button, input, textarea { font-family: var(--font); }
+    button, input, textarea { font-size: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; }
+    svg { display: block; }
+    img { display: block; max-width: 100%; }
+    ::selection { color: #080912; background: #a995ff; }
+    :focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }
+
+    .skip-link {
+      position: fixed; z-index: 1000; top: 10px; left: 10px;
+      padding: 10px 16px; border-radius: 10px; background: #fff; color: #10111a;
+      transform: translateY(-160%); transition: transform .2s ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .container { width: min(var(--container), calc(100% - 48px)); margin-inline: auto; }
+    .section { position: relative; padding: 108px 0; }
+    .section--tight { padding-top: 0; }
+    .section-head { max-width: 700px; margin: 0 auto 54px; text-align: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; margin-bottom: 17px;
+      color: var(--cyan); font-size: .76rem; font-weight: 750; letter-spacing: .15em; text-transform: uppercase;
+    }
+    .eyebrow-mark { width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 14px currentColor; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { color: var(--text); }
+    h1 { max-width: 900px; margin: 0 auto; font-size: clamp(2.75rem, 6.3vw, 5.25rem); font-weight: 780; letter-spacing: -.065em; line-height: 1.02; }
+    h2 { margin-bottom: 0; font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 750; letter-spacing: -.045em; line-height: 1.12; }
+    h3 { margin-bottom: 10px; font-size: 1.08rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.35; }
+    .gradient-text { color: transparent; background: var(--gradient); background-clip: text; -webkit-background-clip: text; }
+    .section-copy { max-width: 590px; margin: 17px auto 0; color: var(--muted); font-size: 1.05rem; }
+    .section-copy--left { margin-left: 0; }
+
+    .btn {
+      min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 0 20px; border: 1px solid transparent; border-radius: 12px;
+      font-weight: 680; font-size: .92rem; line-height: 1.2; cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn--primary { color: #091116; background: var(--gradient); box-shadow: 0 9px 26px rgba(132, 142, 255, .22); }
+    .btn--primary:hover { box-shadow: 0 13px 32px rgba(132, 142, 255, .34); }
+    .btn--secondary { border-color: var(--line-strong); background: rgba(255,255,255,.025); color: var(--text); }
+    .btn--secondary:hover { border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.055); }
+    .btn--large { min-height: 56px; padding-inline: 24px; border-radius: 14px; font-size: .98rem; }
+    .btn svg { width: 17px; height: 17px; }
+    .icon-box { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid rgba(155,123,255,.2); border-radius: 14px; color: var(--cyan); background: var(--gradient-soft); }
+    .icon-box svg { width: 21px; height: 21px; }
+
+    /* Navigation */
+    .site-header { position: fixed; z-index: 100; inset: 0 0 auto; border-bottom: 1px solid transparent; transition: background .25s ease, border-color .25s ease; }
+    .site-header.is-scrolled { border-color: var(--line); background: rgba(8,9,18,.86); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    .nav-wrap { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 10px; font-size: 1.12rem; font-weight: 780; letter-spacing: -.04em; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; background: var(--gradient); box-shadow: 0 5px 20px rgba(155,123,255,.24); }
+    .brand-mark svg { width: 19px; height: 19px; }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px, 3vw, 34px); margin-inline: auto; }
+    .nav-links a, .nav-signin { color: var(--muted); font-size: .88rem; font-weight: 570; transition: color .2s ease; }
+    .nav-links a:hover, .nav-signin:hover { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 19px; }
+    .nav-actions .btn { min-height: 42px; padding-inline: 17px; font-size: .86rem; }
+    .menu-toggle { width: 44px; height: 44px; display: none; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); cursor: pointer; }
+    .menu-toggle svg { width: 21px; height: 21px; }
+    .mobile-panel { display: none; }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; padding: 164px 0 88px; text-align: center; }
+    .hero::before, .hero::after { position: absolute; z-index: -1; width: 560px; height: 560px; border-radius: 50%; content: ""; filter: blur(110px); pointer-events: none; }
+    .hero::before { top: -290px; left: -240px; background: rgba(112,70,210,.28); }
+    .hero::after { top: 40px; right: -360px; background: rgba(22,158,166,.16); }
+    .hero-grid { position: absolute; z-index: -1; inset: 0; opacity: .34; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 58px 58px; mask-image: linear-gradient(to bottom, black, transparent 80%); }
+    .hero-pill { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 25px; padding: 7px 13px 7px 9px; border: 1px solid rgba(155,123,255,.25); border-radius: 99px; background: rgba(155,123,255,.08); color: #d4c9ff; font-size: .78rem; font-weight: 630; }
+    .pill-new { padding: 3px 8px; border-radius: 99px; background: rgba(155,123,255,.2); color: #dfd6ff; font-size: .68rem; font-weight: 760; letter-spacing: .04em; text-transform: uppercase; }
+    .hero h1 { max-width: 850px; }
+    .hero-copy { max-width: 635px; margin: 24px auto 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.16rem); }
+    .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .hero-note { margin: 15px 0 0; color: var(--quiet); font-size: .8rem; }
+    .hero-note span { color: var(--green); }
+
+    /* Product preview */
+    .product-wrap { position: relative; width: min(100%, 1000px); margin: 72px auto 0; text-align: left; }
+    .product-glow { position: absolute; z-index: -1; inset: 10% 8% -8%; border-radius: 50%; background: rgba(118,86,214,.2); filter: blur(90px); }
+    .product-window { overflow: hidden; border: 1px solid rgba(238,240,255,.15); border-radius: 19px; background: #0d101b; box-shadow: var(--shadow), 0 0 0 7px rgba(255,255,255,.018); transform: perspective(1400px) rotateX(2deg); }
+    .window-bar { height: 46px; display: flex; align-items: center; gap: 7px; padding: 0 15px; border-bottom: 1px solid var(--line); background: #10121e; }
+    .window-dot { width: 9px; height: 9px; border-radius: 50%; background: #4c5061; }
+    .window-dot:first-child { background: #fc7474; } .window-dot:nth-child(2) { background: #efc05d; } .window-dot:nth-child(3) { background: #57d59a; }
+    .window-address { width: min(310px, 52%); margin: 0 auto; overflow: hidden; padding: 4px 12px; border: 1px solid var(--line); border-radius: 7px; color: var(--quiet); background: rgba(255,255,255,.025); font-size: .68rem; text-align: center; white-space: nowrap; text-overflow: ellipsis; }
+    .dashboard { min-height: 432px; display: grid; grid-template-columns: 190px minmax(0,1fr); }
+    .dash-side { padding: 17px 12px; border-right: 1px solid var(--line); background: #0b0e18; }
+    .dash-brand { display: flex; align-items: center; gap: 8px; margin: 0 0 23px 7px; font-size: .82rem; font-weight: 720; }
+    .dash-brand .brand-mark { width: 24px; height: 24px; border-radius: 8px; }
+    .dash-brand .brand-mark svg { width: 14px; height: 14px; }
+    .dash-nav-label { margin: 18px 9px 8px; color: #666d83; font-size: .61rem; font-weight: 760; letter-spacing: .13em; text-transform: uppercase; }
+    .dash-link { display: flex; align-items: center; gap: 10px; margin: 3px 0; padding: 9px 10px; border-radius: 8px; color: #949bb0; font-size: .72rem; }
+    .dash-link svg { width: 15px; height: 15px; color: #737b93; }
+    .dash-link.is-active { color: #e0d9ff; background: rgba(155,123,255,.15); }
+    .dash-link.is-active svg { color: var(--violet); }
+    .dash-main { min-width: 0; padding: 25px 26px; }
+    .dash-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 21px; }
+    .dash-heading { margin: 0; font-size: 1.03rem; font-weight: 710; letter-spacing: -.02em; }
+    .dash-date { color: var(--quiet); font-size: .7rem; }
+    .dash-avatar { width: 30px; height: 30px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #211845; background: #c8baff; font-size: .65rem; font-weight: 750; }
+    .dash-welcome { display: flex; align-items: center; gap: 10px; }
+    .dash-kpis { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-bottom: 14px; }
+    .dash-card { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 11px; background: #121624; }
+    .dash-label { display: block; color: #82899f; font-size: .65rem; }
+    .dash-value { display: block; margin: 4px 0 2px; font-size: 1.28rem; font-weight: 740; letter-spacing: -.04em; }
+    .dash-change { color: var(--green); font-size: .63rem; font-weight: 650; }
+    .dash-content { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(180px,.85fr); gap: 14px; }
+    .chart-card, .activity-card { padding: 16px; border: 1px solid var(--line); border-radius: 11px; background: #121624; }
+    .card-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
+    .card-title { margin: 0; font-size: .74rem; font-weight: 680; }
+    .card-small { color: var(--quiet); font-size: .62rem; }
+    .chart-area { height: 130px; display: flex; align-items: end; gap: 8px; padding: 5px 3px 0; border-bottom: 1px solid rgba(255,255,255,.06); background: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(255,255,255,.05) 32px); }
+    .chart-bar { flex: 1; min-width: 5px; height: var(--h); border-radius: 5px 5px 0 0; background: linear-gradient(180deg, rgba(155,123,255,.95), rgba(86,222,213,.22)); }
+    .chart-labels { display: flex; justify-content: space-between; margin-top: 8px; color: #6f768d; font-size: .56rem; }
+    .activity-row { display: flex; align-items: flex-start; gap: 9px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.055); }
+    .activity-row:last-child { border-bottom: 0; }
+    .activity-icon { width: 25px; height: 25px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 8px; color: var(--cyan); background: rgba(86,222,213,.1); }
+    .activity-icon svg { width: 13px; height: 13px; }
+    .activity-copy { min-width: 0; color: #c5c8d6; font-size: .62rem; line-height: 1.4; }
+    .activity-copy small { display: block; margin-top: 3px; color: #727990; font-size: .56rem; }
+
+    /* Feature chips */
+    .proof-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 11px 28px; padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .proof-intro { width: 100%; margin-bottom: 3px; color: var(--quiet); font-size: .72rem; font-weight: 680; letter-spacing: .09em; text-align: center; text-transform: uppercase; }
+    .proof-item { display: inline-flex; align-items: center; gap: 8px; color: #b5b9ca; font-size: .88rem; font-weight: 640; }
+    .proof-item svg { width: 17px; height: 17px; color: var(--violet); }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .feature-card { position: relative; min-height: 212px; overflow: hidden; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012)); transition: border-color .22s ease, transform .22s ease, background .22s ease; }
+    .feature-card:hover { transform: translateY(-4px); border-color: rgba(155,123,255,.35); background: linear-gradient(145deg, rgba(155,123,255,.085), rgba(255,255,255,.015)); }
+    .feature-card h3 { margin-top: 20px; }
+    .feature-card p { max-width: 330px; margin-bottom: 0; color: var(--muted); font-size: .9rem; }
+    .feature-card--wide { grid-column: span 2; display: grid; grid-template-columns: minmax(0,1fr) minmax(170px,.8fr); align-items: center; gap: 20px; }
+    .mini-checklist { padding: 15px; border: 1px solid var(--line); border-radius: 13px; background: rgba(8,9,18,.55); }
+    .mini-check { display: flex; align-items: center; gap: 9px; padding: 6px 0; color: #c4c8d8; font-size: .7rem; }
+    .mini-check svg { width: 15px; height: 15px; flex: 0 0 auto; color: var(--green); }
+
+    /* Workflow */
+    .workflow-shell { display: grid; grid-template-columns: .88fr 1.12fr; gap: clamp(36px,7vw,100px); align-items: center; padding: clamp(26px,5vw,58px); border: 1px solid var(--line); border-radius: var(--radius-lg); background: radial-gradient(ellipse at 90% 0, rgba(155,123,255,.1), transparent 42%), var(--bg-soft); }
+    .workflow-copy h2 { max-width: 490px; }
+    .workflow-copy > p { max-width: 470px; margin: 18px 0 0; color: var(--muted); }
+    .workflow-steps { margin-top: 30px; }
+    .workflow-step { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 12px 0; }
+    .step-number { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid rgba(155,123,255,.3); border-radius: 10px; color: #d9ceff; background: rgba(155,123,255,.1); font-size: .7rem; font-weight: 750; }
+    .workflow-step h3 { margin: 1px 0 4px; font-size: .92rem; }
+    .workflow-step p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .flow-visual { position: relative; min-height: 360px; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: radial-gradient(circle at 50% 48%, rgba(155,123,255,.15), transparent 50%), #0b0d17; }
+    .flow-line { position: absolute; top: 50%; left: 14%; width: 72%; height: 1px; background: linear-gradient(90deg, transparent, rgba(155,123,255,.55), rgba(86,222,213,.55), transparent); }
+    .flow-nodes { position: relative; z-index: 1; width: 100%; display: flex; justify-content: space-evenly; align-items: center; gap: 10px; padding: 18px; }
+    .flow-node { width: 108px; min-height: 105px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; border: 1px solid var(--line-strong); border-radius: 15px; background: #141725; box-shadow: 0 15px 40px rgba(0,0,0,.25); text-align: center; }
+    .flow-node:nth-child(2) { border-color: rgba(155,123,255,.35); transform: translateY(-23px); }
+    .flow-node:nth-child(3) { border-color: rgba(86,222,213,.28); transform: translateY(18px); }
+    .flow-node svg { width: 22px; height: 22px; color: var(--cyan); }
+    .flow-node span { color: #d0d2df; font-size: .69rem; font-weight: 650; line-height: 1.35; }
+    .flow-caption { position: absolute; right: 15px; bottom: 13px; left: 15px; color: var(--quiet); font-size: .65rem; text-align: center; }
+
+    /* Integrations / outcomes */
+    .benefits-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 15px; }
+    .benefit { padding: 24px; border-left: 1px solid rgba(155,123,255,.42); }
+    .benefit-number { display: block; margin-bottom: 20px; color: var(--cyan); font-size: .72rem; font-weight: 780; letter-spacing: .13em; }
+    .benefit h3 { margin-bottom: 9px; font-size: 1.04rem; }
+    .benefit p { max-width: 300px; margin: 0; color: var(--muted); font-size: .88rem; }
+
+    /* Pricing */
+    .pricing-toggle { display: flex; align-items: center; justify-content: center; gap: 13px; margin: 0 0 32px; color: var(--muted); font-size: .86rem; font-weight: 620; }
+    .pricing-toggle .is-current { color: var(--text); }
+    .toggle-button { position: relative; width: 52px; height: 29px; padding: 0; border: 1px solid var(--line-strong); border-radius: 99px; background: var(--surface-raised); cursor: pointer; }
+    .toggle-button::after { position: absolute; top: 3px; left: 3px; width: 21px; height: 21px; border-radius: 50%; background: var(--gradient); content: ""; transition: transform .22s ease; }
+    .toggle-button[aria-pressed="true"]::after { transform: translateX(23px); }
+    .save-badge { padding: 4px 9px; border-radius: 99px; color: var(--green); background: rgba(114,226,178,.1); font-size: .68rem; font-weight: 720; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; align-items: stretch; }
+    .price-card { position: relative; display: flex; flex-direction: column; padding: 28px; border: 1px solid var(--line); border-radius: 19px; background: linear-gradient(150deg, rgba(255,255,255,.035), rgba(255,255,255,.012)); }
+    .price-card--featured { border-color: rgba(155,123,255,.54); background: radial-gradient(ellipse at 50% 0, rgba(155,123,255,.14), transparent 58%), #111421; box-shadow: 0 20px 60px rgba(68,42,130,.14); }
+    .popular-label { position: absolute; top: -12px; left: 50%; padding: 4px 12px; border: 1px solid rgba(155,123,255,.35); border-radius: 99px; color: #e3dcff; background: #282044; font-size: .66rem; font-weight: 720; white-space: nowrap; transform: translateX(-50%); }
+    .plan-name { margin-bottom: 8px; color: #d0d3e1; font-size: .8rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+    .plan-desc { min-height: 45px; margin-bottom: 14px; color: var(--muted); font-size: .83rem; }
+    .plan-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; font-size: 2.75rem; font-weight: 780; letter-spacing: -.06em; line-height: 1.1; }
+    .plan-price .currency { font-size: 1.05rem; font-weight: 650; letter-spacing: 0; }
+    .plan-price .period { color: var(--quiet); font-size: .76rem; font-weight: 560; letter-spacing: 0; }
+    .billing-note { min-height: 18px; margin: 3px 0 20px; color: var(--quiet); font-size: .68rem; }
+    .plan-features { display: grid; gap: 11px; margin: 0 0 26px; padding: 18px 0 0; border-top: 1px solid var(--line); list-style: none; }
+    .plan-features li { display: flex; align-items: flex-start; gap: 9px; color: #c2c6d5; font-size: .81rem; }
+    .plan-features svg { width: 16px; height: 16px; flex: 0 0 auto; margin-top: 3px; color: var(--green); }
+    .price-card .btn { width: 100%; margin-top: auto; }
+    .pricing-footnote { margin: 22px auto 0; color: var(--quiet); font-size: .72rem; text-align: center; }
+
+    /* Testimonials */
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+    .quote-card { display: flex; flex-direction: column; min-height: 235px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .quote-stars { display: flex; gap: 3px; margin-bottom: 17px; color: var(--amber); }
+    .quote-stars svg { width: 14px; height: 14px; fill: currentColor; }
+    .quote-text { flex: 1; margin-bottom: 23px; color: #d2d4e0; font-size: .91rem; line-height: 1.7; }
+    .quote-by { display: flex; align-items: center; gap: 11px; }
+    .quote-avatar { width: 38px; height: 38px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #171226; background: linear-gradient(135deg,#c2b3ff,#76ded6); font-size: .72rem; font-weight: 780; }
+    .quote-name { display: block; color: var(--text); font-size: .79rem; font-weight: 700; }
+    .quote-role { display: block; color: var(--quiet); font-size: .68rem; }
+    .sample-note { margin: 17px 0 0; color: var(--quiet); font-size: .72rem; text-align: center; }
+
+    /* FAQ */
+    .faq-list { max-width: 790px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item:first-child { border-top: 1px solid var(--line); }
+    .faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 21px 2px; color: var(--text); font-size: .96rem; font-weight: 660; list-style: none; cursor: pointer; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { width: 22px; height: 22px; display: grid; flex: 0 0 auto; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--muted); content: "+"; font-size: 1rem; font-weight: 500; transition: transform .2s ease, background .2s ease; }
+    .faq-item[open] summary::after { color: #10111a; background: var(--gradient); transform: rotate(45deg); }
+    .faq-answer { max-width: 690px; padding: 0 38px 20px 2px; color: var(--muted); font-size: .88rem; }
+    .faq-answer p { margin: 0; }
+
+    /* CTA and contact form */
+    .cta-panel { position: relative; display: grid; grid-template-columns: minmax(0,1fr) minmax(270px,.72fr); gap: 38px; align-items: center; overflow: hidden; padding: clamp(28px,6vw,66px); border: 1px solid rgba(155,123,255,.32); border-radius: var(--radius-lg); background: radial-gradient(ellipse at 10% 0, rgba(155,123,255,.25), transparent 48%), radial-gradient(ellipse at 100% 100%, rgba(86,222,213,.12), transparent 45%), #111322; }
+    .cta-copy { position: relative; z-index: 1; }
+    .cta-copy h2 { max-width: 570px; }
+    .cta-copy p { max-width: 490px; margin: 17px 0 0; color: #b6bbce; }
+    .lead-form { position: relative; z-index: 1; padding: 21px; border: 1px solid rgba(255,255,255,.12); border-radius: 16px; background: rgba(8,9,18,.65); }
+    .lead-form label { display: block; margin-bottom: 7px; color: #d2d5e2; font-size: .75rem; font-weight: 650; }
+    .lead-form input { width: 100%; min-height: 46px; margin-bottom: 13px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: 10px; outline: none; color: var(--text); background: #101321; }
+    .lead-form input::placeholder { color: #73798d; }
+    .lead-form input:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(155,123,255,.15); }
+    .lead-form .btn { width: 100%; }
+    .form-note { margin: 10px 0 0; color: var(--quiet); font-size: .65rem; line-height: 1.5; }
+    .form-status { min-height: 20px; margin: 9px 0 0; color: var(--cyan); font-size: .72rem; }
+
+    /* Footer */
+    .site-footer { padding: 68px 0 26px; border-top: 1px solid var(--line); background: #090a13; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(3,1fr); gap: 40px; padding-bottom: 48px; }
+    .footer-about p { max-width: 280px; margin: 15px 0 0; color: var(--muted); font-size: .84rem; }
+    .footer-col h3 { margin-bottom: 14px; color: #7f859b; font-size: .7rem; font-weight: 740; letter-spacing: .13em; text-transform: uppercase; }
+    .footer-col a { display: block; width: fit-content; padding: 5px 0; color: var(--muted); font-size: .82rem; transition: color .2s ease; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--quiet); font-size: .72rem; }
+    .footer-legal { display: flex; flex-wrap: wrap; gap: 16px; }
+    .footer-legal a:hover { color: var(--text); }
+
+    /* Modal */
+    .demo-dialog { width: min(520px, calc(100% - 32px)); max-height: min(85vh, 760px); padding: 0; overflow: auto; border: 1px solid var(--line-strong); border-radius: 20px; color: var(--text); background: var(--surface); box-shadow: var(--shadow); }
+    .demo-dialog::backdrop { background: rgba(3,4,9,.78); backdrop-filter: blur(5px); }
+    .dialog-inner { padding: 29px; }
+    .dialog-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 19px; }
+    .dialog-top h2 { font-size: 1.55rem; }
+    .dialog-top p { margin: 8px 0 0; color: var(--muted); font-size: .86rem; }
+    .dialog-close { width: 36px; height: 36px; display: grid; flex: 0 0 auto; place-items: center; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); background: transparent; cursor: pointer; }
+    .dialog-close svg { width: 17px; height: 17px; }
+
+    /* Progressive-enhancement reveal: content remains visible if JS is disabled. */
+    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.2,1); }
+    .js .reveal.is-visible { opacity: 1; transform: none; }
+    .js .reveal-delay-1 { transition-delay: .08s; }
+    .js .reveal-delay-2 { transition-delay: .16s; }
+
+    @media (max-width: 980px) {
+      .nav-links { gap: 16px; }
+      .nav-actions { gap: 12px; }
+      .dashboard { grid-template-columns: 160px minmax(0,1fr); }
+      .dash-main { padding: 20px; }
+      .dash-content { grid-template-columns: minmax(0,1.2fr) minmax(160px,.8fr); }
+      .feature-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .feature-card--wide { grid-column: span 2; }
+      .workflow-shell { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .flow-visual { min-height: 330px; }
+      .footer-grid { gap: 26px; }
+    }
+    @media (max-width: 760px) {
+      html { scroll-padding-top: 76px; }
+      .container { width: min(var(--container), calc(100% - 36px)); }
+      .section { padding: 82px 0; }
+      .section--tight { padding-top: 0; }
+      .nav-wrap { min-height: 68px; }
+      .nav-links, .nav-signin { display: none; }
+      .nav-actions { margin-left: auto; }
+      .nav-actions .btn { min-height: 40px; padding-inline: 13px; }
+      .menu-toggle { display: inline-flex; }
+      .mobile-panel { position: absolute; top: calc(100% + 1px); right: 0; left: 0; display: grid; gap: 3px; padding: 12px 18px 18px; border-bottom: 1px solid var(--line); background: rgba(8,9,18,.97); box-shadow: 0 20px 35px rgba(0,0,0,.25); opacity: 0; visibility: hidden; transform: translateY(-7px); transition: opacity .18s ease, transform .18s ease, visibility .18s ease; }
+      .mobile-panel.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+      .mobile-panel a:not(.btn) { padding: 11px 3px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+      .mobile-panel .btn { margin-top: 9px; }
+      .hero { padding: 128px 0 72px; }
+      .hero::before, .hero::after { width: 380px; height: 380px; }
+      .product-wrap { margin-top: 54px; }
+      .product-window { transform: none; }
+      .dashboard { grid-template-columns: 1fr; min-height: 0; }
+      .dash-side { display: none; }
+      .dash-main { padding: 18px; }
+      .dash-content { grid-template-columns: 1fr; }
+      .activity-card { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 12px; }
+      .activity-card .card-title-row { grid-column: 1/-1; }
+      .proof-row { gap: 12px 20px; }
+      .workflow-shell { grid-template-columns: 1fr; }
+      .flow-visual { min-height: 290px; }
+      .benefits-grid { gap: 8px; }
+      .benefit { padding: 18px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 470px; margin-inline: auto; gap: 20px; }
+      .price-card { padding: 26px; }
+      .plan-desc { min-height: 0; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .quote-card { min-height: 0; }
+      .cta-panel { grid-template-columns: 1fr; gap: 26px; }
+      .footer-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .footer-about { grid-column: 1/-1; }
+    }
+    @media (max-width: 520px) {
+      .container { width: calc(100% - 32px); }
+      .section { padding: 70px 0; }
+      .section--tight { padding-top: 0; }
+      h1 { font-size: clamp(2.55rem, 13vw, 4rem); }
+      h2 { font-size: clamp(1.85rem, 9vw, 2.6rem); }
+      .hero-pill { max-width: 100%; font-size: .69rem; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; width: min(100%, 350px); margin-inline: auto; }
+      .hero-actions .btn { width: 100%; }
+      .hero-note { max-width: 300px; margin-inline: auto; }
+      .product-wrap { width: calc(100% + 12px); margin-left: -6px; }
+      .window-bar { height: 38px; }
+      .dash-main { padding: 14px 12px; }
+      .dash-kpis { gap: 7px; }
+      .dash-card { padding: 10px 8px; }
+      .dash-value { font-size: 1.03rem; }
+      .dash-label, .dash-change { font-size: .56rem; }
+      .dash-date { display: none; }
+      .chart-card, .activity-card { padding: 12px; }
+      .chart-area { height: 100px; gap: 5px; }
+      .activity-card { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .feature-card--wide { grid-column: auto; display: block; }
+      .feature-card--wide .mini-checklist { margin-top: 20px; }
+      .workflow-shell { padding: 24px 18px; }
+      .flow-visual { min-height: 265px; }
+      .flow-nodes { gap: 7px; padding: 10px; }
+      .flow-node { width: 29%; min-height: 90px; padding: 8px 5px; }
+      .flow-node span { font-size: .6rem; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .benefit { padding: 13px 17px; }
+      .benefit-number { margin-bottom: 8px; }
+      .pricing-toggle { gap: 9px; font-size: .78rem; }
+      .cta-panel { padding: 26px 19px; }
+      .lead-form { padding: 17px; }
+      .footer-grid { gap: 23px 14px; }
+      .footer-bottom { align-items: flex-start; flex-direction: column; }
+      .dialog-inner { padding: 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .js .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Clientflow home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2.5 5 13h6.4L10.5 21.5 19 10h-6.2l.7-7.5Z" fill="white" stroke="white" stroke-linejoin="round" stroke-width="1.3"/></svg></span>
+        <span>Clientflow</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#features">Features</a><a href="#workflow">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="nav-signin" href="#contact">Talk to us</a>
+        <a class="btn btn--primary" href="#pricing">Explore plans <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobilePanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+    <nav class="mobile-panel" id="mobilePanel" aria-label="Mobile navigation" inert>
+      <a href="#features">Features</a><a href="#workflow">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+      <a class="btn btn--primary" href="#contact">Talk to us</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-pill reveal"><span class="pill-new">Introducing</span><span>A smoother client onboarding experience</span></div>
+        <h1 class="reveal reveal-delay-1" id="hero-title">Make every new client feel like <span class="gradient-text">your best one.</span></h1>
+        <p class="hero-copy reveal reveal-delay-2">Bring proposals, client details, files, and kickoff into one clear flow. Less chasing for your team. A better first impression for every client.</p>
+        <div class="hero-actions reveal reveal-delay-2">
+          <a class="btn btn--primary btn--large" href="#contact">See how it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <button class="btn btn--secondary btn--large" type="button" data-open-demo>Preview the product <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 9 6-9 6V6Z"/></svg></button>
+        </div>
+        <p class="hero-note reveal reveal-delay-2"><span aria-hidden="true">●</span> A clear workflow from first hello to project kickoff</p>
+
+        <div class="product-wrap reveal" aria-label="Illustrative Clientflow dashboard preview">
+          <div class="product-glow" aria-hidden="true"></div>
+          <div class="product-window">
+            <div class="window-bar" aria-hidden="true"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span><span class="window-address">app.clientflow.example / workspace</span></div>
+            <div class="dashboard">
+              <aside class="dash-side" aria-label="Example application sidebar">
+                <div class="dash-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2.5 5 13h6.4L10.5 21.5 19 10h-6.2l.7-7.5Z" fill="white"/></svg></span>Clientflow</div>
+                <div class="dash-nav-label">Workspace</div>
+                <div class="dash-link is-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Overview</div>
+                <div class="dash-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="4"/><path d="M3 21v-2a6 6 0 0 1 12 0v2M17 4a4 4 0 0 1 0 8M18 15a5 5 0 0 1 3 4v2"/></svg>Clients</div>
+                <div class="dash-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg>Documents</div>
+                <div class="dash-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Timeline</div>
+                <div class="dash-nav-label">Manage</div>
+                <div class="dash-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>Integrations</div>
+                <div class="dash-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2 2-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-2.8v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-2-2 .1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H5v-2.8h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 2-2 .1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5V5h2.8v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 2 2-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2v2.8h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>Settings</div>
+              </aside>
+              <div class="dash-main">
+                <div class="dash-top"><div><div class="dash-date">MONDAY, OCTOBER 19</div><p class="dash-heading">Good morning, Alex</p></div><div class="dash-welcome"><span class="dash-date">Your workspace</span><span class="dash-avatar" aria-label="Profile initials A">A</span></div></div>
+                <div class="dash-kpis">
+                  <div class="dash-card"><span class="dash-label">Active clients</span><strong class="dash-value">24</strong><span class="dash-change">+ 3 this month</span></div>
+                  <div class="dash-card"><span class="dash-label">In progress</span><strong class="dash-value">08</strong><span class="dash-change">2 need attention</span></div>
+                  <div class="dash-card"><span class="dash-label">Next kickoff</span><strong class="dash-value">2:30 PM</strong><span class="dash-change">Today · Studio North</span></div>
+                </div>
+                <div class="dash-content">
+                  <div class="chart-card"><div class="card-title-row"><p class="card-title">Onboarding activity</p><span class="card-small">Last 8 weeks</span></div><div class="chart-area" aria-label="Illustrative chart of onboarding activity over eight weeks"><span class="chart-bar" style="--h:34%"></span><span class="chart-bar" style="--h:52%"></span><span class="chart-bar" style="--h:43%"></span><span class="chart-bar" style="--h:62%"></span><span class="chart-bar" style="--h:57%"></span><span class="chart-bar" style="--h:76%"></span><span class="chart-bar" style="--h:70%"></span><span class="chart-bar" style="--h:91%"></span></div><div class="chart-labels"><span>Week 1</span><span>Week 4</span><span>Week 8</span></div></div>
+                  <div class="activity-card"><div class="card-title-row"><p class="card-title">Recent activity</p><span class="card-small">View all</span></div>
+                    <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></span><div class="activity-copy">Intake form completed<small>Studio North · 12 min ago</small></div></div>
+                    <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg></span><div class="activity-copy">Proposal ready to review<small>Fieldwork Co. · 1 hr ago</small></div></div>
+                    <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><div class="activity-copy">Kickoff scheduled<small>June &amp; Pine · Yesterday</small></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-label="Suitable for">
+      <div class="container">
+        <div class="proof-row">
+          <p class="proof-intro">A flexible starting point for service teams</p>
+          <span class="proof-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m4 17 6-10 4 7 2-3 4 6H4Z"/></svg>Creative studios</span>
+          <span class="proof-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>Consultancies</span>
+          <span class="proof-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>Independent teams</span>
+          <span class="proof-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V5l8-3 8 3v14l-8 3-8-3Z"/><path d="m8 12 2.5 2.5L16 9"/></svg>Client services</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow"><span class="eyebrow-mark"></span>Features</span><h2 id="features-title">A thoughtful first step for <span class="gradient-text">every project.</span></h2><p class="section-copy">Give your team a repeatable way to collect what they need, keep clients informed, and get work moving.</p></div>
+        <div class="feature-grid">
+          <article class="feature-card reveal"><span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M3 12h2m14 0h2M5.6 5.6 7 7m10 10 1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="4"/></svg></span><h3>Guided intake</h3><p>Ask the right questions with a clear, branded intake flow clients can complete at their own pace.</p></article>
+          <article class="feature-card reveal reveal-delay-1"><span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></span><h3>Proposals &amp; agreements</h3><p>Share project scope, deliverables, and next steps in one tidy place. Connect your preferred signing tools.</p></article>
+          <article class="feature-card reveal reveal-delay-2"><span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg></span><h3>One client workspace</h3><p>Keep files, conversations, approvals, and key information easy for the whole project team to find.</p></article>
+          <article class="feature-card feature-card--wide reveal"><div><span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/><path d="m15 16 2 2 4-4"/></svg></span><h3>Repeatable onboarding flows</h3><p>Build a dependable process once, then adapt it for each service, team, or client relationship.</p></div><div class="mini-checklist" aria-label="Example onboarding checklist"><div class="mini-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Share project details</div><div class="mini-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Collect required files</div><div class="mini-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Confirm kickoff time</div></div></article>
+          <article class="feature-card reveal"><span class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h17"/><path d="m7 15 4-4 3 2 6-7"/></svg></span><h3>Progress at a glance</h3><p>See what is complete, what is waiting, and where a personal follow-up will make a difference.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="workflow" aria-labelledby="workflow-title">
+      <div class="container">
+        <div class="workflow-shell reveal">
+          <div class="workflow-copy"><span class="eyebrow"><span class="eyebrow-mark"></span>How it works</span><h2 id="workflow-title">A better handoff in <span class="gradient-text">three clear steps.</span></h2><p>Replace disconnected emails and repeated questions with an onboarding process that is easy to understand and simple to repeat.</p>
+            <div class="workflow-steps">
+              <div class="workflow-step"><span class="step-number">01</span><div><h3>Choose a starting flow</h3><p>Pick a service or project type and tailor the checklist to your team.</p></div></div>
+              <div class="workflow-step"><span class="step-number">02</span><div><h3>Invite your client</h3><p>Send a single link to gather details, files, and decisions in context.</p></div></div>
+              <div class="workflow-step"><span class="step-number">03</span><div><h3>Start with clarity</h3><p>Review what is ready, follow up on gaps, and move into kickoff together.</p></div></div>
+            </div>
+          </div>
+          <div class="flow-visual" role="img" aria-label="Illustration: invite a client, collect project details, and begin the project">
+            <div class="flow-line" aria-hidden="true"></div><div class="flow-nodes">
+              <div class="flow-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg><span>Send an invite</span></div>
+              <div class="flow-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/><path d="m15 17 2 2 4-4"/></svg><span>Gather what you need</span></div>
+              <div class="flow-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m4 17 6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg><span>Begin the project</span></div>
+            </div><p class="flow-caption">Illustrative workflow graphic — customize to match your product.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="benefits-title">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow"><span class="eyebrow-mark"></span>Built for good work</span><h2 id="benefits-title">Fewer loose ends.<br><span class="gradient-text">More room to focus.</span></h2><p class="section-copy">The details may be small, but a calm onboarding experience changes how the whole project begins.</p></div>
+        <div class="benefits-grid">
+          <article class="benefit reveal"><span class="benefit-number">01 / CLARITY</span><h3>Everyone knows what comes next</h3><p>Set expectations early so clients and teammates are not left guessing about next steps.</p></article>
+          <article class="benefit reveal reveal-delay-1"><span class="benefit-number">02 / CONSISTENCY</span><h3>Deliver the same care every time</h3><p>Give every new relationship a thoughtful start, even when your team is busy.</p></article>
+          <article class="benefit reveal reveal-delay-2"><span class="benefit-number">03 / VISIBILITY</span><h3>Spot what needs your attention</h3><p>Keep outstanding information visible and make follow-ups feel timely and personal.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="pricing" aria-labelledby="pricing-title">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow"><span class="eyebrow-mark"></span>Pricing</span><h2 id="pricing-title">Simple plans for <span class="gradient-text">growing teams.</span></h2><p class="section-copy">Choose a plan that fits the way you work. Update the sample pricing, limits, and features before publishing.</p></div>
+        <div class="pricing-toggle reveal" aria-label="Choose a billing period"><span id="monthlyLabel" class="is-current">Monthly</span><button class="toggle-button" id="billingToggle" type="button" aria-label="Switch to annual billing" aria-pressed="false" aria-controls="pricingGrid"></button><span id="annualLabel">Yearly</span><span class="save-badge">Save 20%</span></div>
+        <div class="pricing-grid" id="pricingGrid">
+          <article class="price-card reveal"><span class="plan-name">Starter</span><p class="plan-desc">A simple place to begin building a repeatable process.</p><div class="plan-price"><span class="currency">$</span><span class="price-value" data-monthly="19" data-annual="15">19</span><span class="period">/ user / mo</span></div><p class="billing-note" data-note-monthly="Billed monthly" data-note-annual="Billed yearly at $180 per user">Billed monthly</p><ul class="plan-features"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Core onboarding flows</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Client intake forms</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Project overview</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Email support</li></ul><a class="btn btn--secondary" href="#contact">Choose Starter</a></article>
+          <article class="price-card price-card--featured reveal reveal-delay-1"><span class="popular-label">Most popular</span><span class="plan-name">Studio</span><p class="plan-desc">More flexibility for teams managing multiple projects.</p><div class="plan-price"><span class="currency">$</span><span class="price-value" data-monthly="49" data-annual="39">49</span><span class="period">/ user / mo</span></div><p class="billing-note" data-note-monthly="Billed monthly" data-note-annual="Billed yearly at $468 per user">Billed monthly</p><ul class="plan-features"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Everything in Starter</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Custom flow templates</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Team collaboration tools</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Priority support</li></ul><a class="btn btn--primary" href="#contact">Choose Studio</a></article>
+          <article class="price-card reveal reveal-delay-2"><span class="plan-name">Business</span><p class="plan-desc">More control for teams with advanced requirements.</p><div class="plan-price"><span class="currency">$</span><span class="price-value" data-monthly="99" data-annual="79">99</span><span class="period">/ user / mo</span></div><p class="billing-note" data-note-monthly="Billed monthly" data-note-annual="Billed yearly at $948 per user">Billed monthly</p><ul class="plan-features"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Everything in Studio</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Advanced permissions</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Dedicated onboarding</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Custom integrations</li></ul><a class="btn btn--secondary" href="#contact">Talk to our team</a></article>
+        </div>
+        <p class="pricing-footnote">Sample pricing for layout demonstration only. Replace with your real plans, terms, currency, and billing details.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="testimonials-title">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow"><span class="eyebrow-mark"></span>Customer stories</span><h2 id="testimonials-title">A thoughtful start makes <span class="gradient-text">a lasting impression.</span></h2><p class="section-copy">Use this space to share genuine feedback from customers who have given permission to be featured.</p></div>
+        <div class="testimonial-grid">
+          <article class="quote-card reveal"><div class="quote-stars" aria-label="5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg></div><blockquote class="quote-text">“Add a real customer quote here about a specific improvement to your onboarding process.”</blockquote><div class="quote-by"><span class="quote-avatar" aria-hidden="true">JD</span><div><span class="quote-name">Jordan Doe</span><span class="quote-role">Studio founder · Replace with real attribution</span></div></div></article>
+          <article class="quote-card reveal reveal-delay-1"><div class="quote-stars" aria-label="5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg></div><blockquote class="quote-text">“Replace this sample with an approved testimonial that reflects your product and customer experience.”</blockquote><div class="quote-by"><span class="quote-avatar" aria-hidden="true">AS</span><div><span class="quote-name">Alex Smith</span><span class="quote-role">Operations lead · Replace with real attribution</span></div></div></article>
+          <article class="quote-card reveal reveal-delay-2"><div class="quote-stars" aria-label="5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6.2 6.8 1-4.9 4.8L18 21l-6-3.2L6 21l1.1-7-4.9-4.8 6.8-1L12 2Z"/></svg></div><blockquote class="quote-text">“Keep customer feedback specific, verifiable, and clearly attributed—with permission to publish.”</blockquote><div class="quote-by"><span class="quote-avatar" aria-hidden="true">ML</span><div><span class="quote-name">Morgan Lee</span><span class="quote-role">Creative director · Replace with real attribution</span></div></div></article>
+        </div>
+        <p class="sample-note">Testimonials above are editorial placeholders, not endorsements or real customer claims.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="faq" aria-labelledby="faq-title">
+      <div class="container"><div class="section-head reveal"><span class="eyebrow"><span class="eyebrow-mark"></span>FAQ</span><h2 id="faq-title">A few things you may be <span class="gradient-text">wondering.</span></h2></div>
+        <div class="faq-list reveal">
+          <details class="faq-item"><summary>What is Clientflow?</summary><div class="faq-answer"><p>Clientflow is a fictional brand used to demonstrate this SaaS marketing template. Replace this answer with an accurate description of your product.</p></div></details>
+          <details class="faq-item"><summary>Can I customize the onboarding steps?</summary><div class="faq-answer"><p>This is sample marketing copy. If your product supports configurable workflows, explain how customers can adapt steps, forms, and communications here.</p></div></details>
+          <details class="faq-item"><summary>Does the template include a working SaaS backend?</summary><div class="faq-answer"><p>No. This download is a front-end website template. Authentication, database, billing, client portals, email delivery, and integrations require your own application and services.</p></div></details>
+          <details class="faq-item"><summary>Can I connect my own signup or contact service?</summary><div class="faq-answer"><p>Yes. Connect the buttons and lead form to your application, form processor, or CRM. The included sample form only demonstrates the interface and does not transmit or store submissions.</p></div></details>
+          <details class="faq-item"><summary>Can I change the pricing and billing period?</summary><div class="faq-answer"><p>Yes. Edit the displayed plan details and the monthly/annual values in the HTML. The billing switch is interactive, but payment processing and subscription management are not included.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="contact" aria-labelledby="contact-title">
+      <div class="container"><div class="cta-panel reveal">
+        <div class="cta-copy"><span class="eyebrow"><span class="eyebrow-mark"></span>Get started</span><h2 id="contact-title">Give your next client a <span class="gradient-text">great beginning.</span></h2><p>Tell us a little about your team and we’ll show you how a more thoughtful onboarding flow could work.</p></div>
+        <form class="lead-form" id="leadForm">
+          <label for="leadName">Your name</label><input id="leadName" name="name" type="text" autocomplete="name" placeholder="Jordan Lee" required>
+          <label for="leadEmail">Work email</label><input id="leadEmail" name="email" type="email" autocomplete="email" placeholder="jordan@company.com" required>
+          <button class="btn btn--primary" type="submit">Request a conversation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="form-note">Demo form only: connect this form to your backend or CRM before publishing. No information is sent or stored by this template.</p><p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about"><a class="brand" href="#top" aria-label="Clientflow home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2.5 5 13h6.4L10.5 21.5 19 10h-6.2l.7-7.5Z" fill="white"/></svg></span><span>Clientflow</span></a><p>A fictional SaaS brand and editable front-end template for teams who want a better way to welcome new clients.</p></div>
+        <div class="footer-col"><h3>Explore</h3><a href="#features">Features</a><a href="#workflow">How it works</a><a href="#pricing">Pricing</a></div>
+        <div class="footer-col"><h3>Resources</h3><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="#top">Back to top</a></div>
+        <div class="footer-col"><h3>Make it yours</h3><a href="#contact">Request a demo</a><a href="#pricing">View plans</a><a href="#features">Product overview</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="currentYear">2026</span> Clientflow. Template demonstration — replace brand and legal details.</span></div>
+    </div>
+  </footer>
+
+  <dialog class="demo-dialog" id="demoDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-inner"><div class="dialog-top"><div><h2 id="dialogTitle">A closer look at Clientflow</h2><p>This is a visual template preview. Connect this button to a real demo, video, or product tour.</p></div><button class="dialog-close" type="button" data-close-dialog aria-label="Close dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><div class="mini-checklist"><div class="mini-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Guide clients through a clear intake flow</div><div class="mini-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Keep essential project details in context</div><div class="mini-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Help your team see what comes next</div></div><a class="btn btn--primary" style="width:100%; margin-top:20px" href="#contact" data-dialog-contact>Talk to our team</a></div>
+  </dialog>
+
+  <script>
+    (() => {
+      'use strict';
+      const header = document.getElementById('siteHeader');
+      const menuToggle = document.getElementById('menuToggle');
+      const mobilePanel = document.getElementById('mobilePanel');
+      const billingToggle = document.getElementById('billingToggle');
+      const dialog = document.getElementById('demoDialog');
+
+      const setMenuOpen = (open) => {
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        mobilePanel.classList.toggle('is-open', open);
+        mobilePanel.inert = !open;
+      };
+
+      menuToggle.addEventListener('click', () => {
+        setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+      });
+      mobilePanel.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setMenuOpen(false));
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+          setMenuOpen(false);
+          menuToggle.focus();
+        }
+      });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 760) setMenuOpen(false);
+      }, { passive: true });
+
+      const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
+      updateHeader();
+      window.addEventListener('scroll', updateHeader, { passive: true });
+
+      const setBilling = (annual) => {
+        billingToggle.setAttribute('aria-pressed', String(annual));
+        billingToggle.setAttribute('aria-label', annual ? 'Switch to monthly billing' : 'Switch to annual billing');
+        document.getElementById('monthlyLabel').classList.toggle('is-current', !annual);
+        document.getElementById('annualLabel').classList.toggle('is-current', annual);
+        document.querySelectorAll('.price-value').forEach((price) => {
+          price.textContent = annual ? price.dataset.annual : price.dataset.monthly;
+        });
+        document.querySelectorAll('.billing-note').forEach((note) => {
+          note.textContent = annual ? note.dataset.noteAnnual : note.dataset.noteMonthly;
+        });
+      };
+      billingToggle.addEventListener('click', () => {
+        setBilling(billingToggle.getAttribute('aria-pressed') !== 'true');
+      });
+
+      const openDialog = () => {
+        if (typeof dialog.showModal === 'function') dialog.showModal();
+        else window.location.hash = 'contact';
+      };
+      document.querySelectorAll('[data-open-demo]').forEach((button) => button.addEventListener('click', openDialog));
+      document.querySelectorAll('[data-close-dialog]').forEach((button) => button.addEventListener('click', () => dialog.close()));
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.querySelector('[data-dialog-contact]').addEventListener('click', () => dialog.close());
+
+      const leadForm = document.getElementById('leadForm');
+      leadForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        document.getElementById('formStatus').textContent = 'This demo form is front-end only. Connect it to your service to receive submissions.';
+      });
+
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      const revealItems = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const observer = new IntersectionObserver((entries, currentObserver) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              currentObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
+        revealItems.forEach((item) => observer.observe(item));
+      } else {
+        revealItems.forEach((item) => item.classList.add('is-visible'));
+      }
+    })();
+  </script>
+</body>
+</html>
